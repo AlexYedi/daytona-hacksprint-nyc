@@ -1,0 +1,1132 @@
+url: https://surrealdb.com/agent-memory
+fetched_at: 2026-10-16T15:57:26Z
+via: Anchor fetch-webpage
+---
+[Skip to content](#main-content)
+
+Stop choosing. SurrealDB launch week, 12-16 October
+
+[See what's coming](/stop-choosing)
+
+# Memory you can finally trust.
+
+[Start in Studio](https://studio.surrealdb.com/current/contexts)[Technical deep-dive](/agent-memory/deep-dive)[View the benchmarks](/agent-memory/benchmarks)
+
+**Provenance.** Every fact keeps its history, its permissions and its source, in one database.
+
+**Retrieval.** Seven signals fuse into one ranking, and the trace records each one.
+
+**One engine.** Memory in the database, not beside it: each fact and its edges in one transaction.
+
+PROOF
+
+## Every figure is measured or built into the engine.
+
+[77.2%BEAM 1M score, official judge prompt, event ordering by Kendall tau, across the full 700-question set.](/agent-memory/benchmarks)[7Signals fused into one ranking, with every signal's score recorded on the trace.](/agent-memory/recall)[3Clocks behind every fact: system time, known time and, where the source states it, valid time.](/agent-memory/temporal)[1Transaction per fact write, covering the fact, its edges and its history.](/agent-memory/deep-dive)
+
+THE PROBLEM
+
+## Where agent memory fails
+
+### Memory ends with the session.The work is done again.
+
+The context window is an agent's only built-in memory. When the session closes, so does everything it learnt.
+
+### Retrieval returns both facts.The old one and the new.
+
+A vector store appends. When a fact changes, both versions score well and nothing says which won, so the model guesses.
+
+### Every question is asked again.A repeat costs as much as the first.
+
+Retrieval plus an LLM call on every question charges the same for a repeated question as for a new one, even when no fact behind it has changed.
+
+Agent Memory is not
+
+a vector database
+
+a chat-history blob
+
+a hand-rolled knowledge graph
+
+a context-window manager
+
+an agent runtime
+
+HOW IT WORKS
+
+## Write, reconcile, read. Reconcile is the hard part. Most memory layers leave reconciliation to application code. Here it is part of the engine.
+
+[### Remember /facts /documents Conversations and documents become typed entities, attributes and relations, each row carrying its source, span and confidence. Explore memory](/agent-memory/memory)[### Reconcile one reconciler no last write wins One reconciler decides what a new fact does to an old one: corrections supersede, and disagreement below the floor is recorded as uncertainty. Explore reconciliation](/agent-memory/temporal)[### Read /query /chat A question runs through a four-tier cascade, and a repeated chat question can reuse an answer whose facts have not changed. Where retrieval runs, seven signals fuse into one ranking. Explore recall](/agent-memory/recall)
+
+HOW IT BEHAVES
+
+## Corrections supersede. The old fact stays.
+
+Session 4 · turn 42
+
+A
+
+Ana
+
+2026-03-14 · 09:12
+
+Facts written
+
+Tobie works at Acme as CTO
+
+turn:42 · chars 15-38 · confidence 0.91
+
+Acme is an organisation
+
+turn:42 · chars 34-38 · confidence 0.95
+
+Session 9 · turn 43
+
+A
+
+Ana
+
+2026-04-12 · 16:40
+
+Facts after reconciliation
+
+Tobie works at Acme as CTO
+
+superseded · valid\_until 2026-04-12 · row retained
+
+Tobie works at SurrealDB
+
+turn:43 · chars 12-30 · confidence 0.88
+
+Ask · today
+
+Where does Tobie work?
+
+cited turn:43
+
+Ask · as of 2026-04-01
+
+Where does Tobie work?
+
+cited turn:42 · superseded 2026-04-12
+
+CAPABILITIES
+
+## Five capabilities. One memory you can audit. Each capability states the mechanism behind it, and each has a page that shows how it works.
+
+[### Typed memory attributes relations actions Conversations and documents become typed facts about entities. Each fact records when it was learnt, its source and its confidence and, where the source says, when it was true. Reconciliation decisions are made in code, so the same input gives the same result. Explore typed memory](/agent-memory/memory)[### Knowledge graph entities relations citations Turns and documents share one entity and relation graph, so a fact from a PDF and a fact from a conversation link to the same entity, each citing the passage it came from. Explore the knowledge graph](/agent-memory/knowledge-graph)[### Recall seven signals one ranking Vector similarity, keyword matching, graph relationships and the history of what proved useful are fused into one ranking. A cached chat answer is never reused once a fact it cited is superseded. Explore recall](/agent-memory/recall)[### Provenance traces audit events Writes, ranked reads and chat answers each record a trace linked to the facts they touched, in your own database, so an answer can be traced back to its sources. Explore provenance](/agent-memory/provenance)[### Temporal memory valid\_from valid\_until A new value closes the validity of the old one instead of overwriting it, so what the agent believed on any date is one query. Explore temporal memory](/agent-memory/temporal)
+
+THE NUMBERS
+
+## BEAM at 1M: 77.2%
+
+The score is the mean of ten memory abilities across the full 700-question BEAM 1M question set. The headline carries its judge and date, and every run, protocol and vendor comparison is on the benchmarks page.
+
+### 77.2%
+
+BEAM 1M score, official judge prompt, event ordering by Kendall tau
+
+gemini-3.5-flash-lite judge · October 2026
+
+### 700
+
+Questions scored, the full BEAM 1M question set
+
+35 conversations
+
+### 10
+
+Memory abilities scored, with the mean reported above
+
+Each ability is scored separately, and every score is in the chart below
+
+Overall score, then each ability
+
+BEAM 1M overall 77.2%
+
+Instruction following 93.6%
+
+Preference following 89.5%
+
+Information extraction 88.7%
+
+Knowledge update 88.6%
+
+Contradiction resolution 78.6%
+
+Abstention 72.9%
+
+Multi-session reasoning 72.6%
+
+Summarisation 71.8%
+
+Temporal reasoning 65.7%
+
+Event ordering 49.7%
+
+0
+
+10
+
+20
+
+30
+
+40
+
+50
+
+60
+
+70
+
+80
+
+90
+
+100
+
+[See every benchmark, judge and protocol](/agent-memory/benchmarks)
+
+QUICKSTART
+
+## From a context to a connected agent. Start in [Studio](https://studio.surrealdb.com/current/contexts), or read the [documentation](/docs/agent-memory).
+
+1.  ### Create a context.Its own namespace and database.
+    
+    Open Studio, create a context and copy its URL and API key. A context is a tenant, and no API reads across contexts.
+    
+2.  ### Remember and recall.Every fact keeps its source.
+    
+    Install the client, export the connection details and write a fact. Recall returns it with its source.
+    
+3.  ### Connect your agent.Seven tools over MCP.
+    
+    Add the MCP server to Claude Desktop, Cursor or Claude Code, and the agent gets remember, recall, context, reflect, forget, upload and inspect.
+    
+
+CLI
+
+### Install and remember
+
+Install the agent-memory client, export the context's URL, key and ID, then write a fact and recall it with its source.
+
+Copy
+
+curl \-fsSL https://download.surrealdb.com/agent-memory/install.sh | sh  
+  
+export SPECTRON\_URL\="<context-url>"  
+export SPECTRON\_API\_KEY\="<context-api-key>"  
+export SPECTRON\_CONTEXT\_ID\="<your-context-id>"  
+  
+agent-memory remember "Sam joined Acme as principal engineer in 2024."  
+agent-memory recall "what is Sam's role" \--json  
+
+MCP
+
+### Claude Desktop and Cursor
+
+Add the context to the client's MCP configuration, and the agent gets the seven Agent Memory tools.
+
+Copy
+
+{  
+  "mcpServers": {  
+    "agent-memory": {  
+      "url": "<context-url>/mcp",  
+      "headers": {  
+        "Authorization": "Bearer <context-api-key>",  
+        "X-Spectron-Context": "<your-context-id>"  
+      }  
+    }  
+  }  
+}  
+
+MCP
+
+### Claude Code
+
+One command registers the context's MCP server over HTTP.
+
+Copy
+
+claude mcp add \--transport http agent-memory "<context-url>/mcp" \\  
+  \--header 'Authorization: Bearer <context-api-key>' \\  
+  \--header 'X-Spectron-Context: <your-context-id>'  
+
+INTEGRATIONS
+
+## Runs where your agents run
+
+Seven MCP tools over streamable HTTP, adapters for agent frameworks and SDKs, all on one REST surface.
+
+![](/assets/static/claude.qeceRvhT.svg)Claude
+
+![](/assets/static/openai.CNSrSktx.svg)OpenAI Codex
+
+![](/assets/static/cursor.CffcCNKv.svg)Cursor
+
+![](/assets/static/openclaw.CzSOJJfQ.svg)OpenClaw
+
+![](/assets/static/hermes.DEpUdTvE.svg)Hermes
+
+![](/assets/static/vscode.ofeWxTsy.svg)VS Code
+
+![](/assets/static/zed.M8dgM-za.svg)Zed
+
+![](/assets/static/grok.B6ZXrpEV.svg)Grok
+
+Zo Computer
+
+![](/assets/static/claude.qeceRvhT.svg)Claude
+
+![](/assets/static/openai.CNSrSktx.svg)OpenAI Codex
+
+![](/assets/static/cursor.CffcCNKv.svg)Cursor
+
+![](/assets/static/openclaw.CzSOJJfQ.svg)OpenClaw
+
+![](/assets/static/hermes.DEpUdTvE.svg)Hermes
+
+![](/assets/static/vscode.ofeWxTsy.svg)VS Code
+
+![](/assets/static/zed.M8dgM-za.svg)Zed
+
+![](/assets/static/grok.B6ZXrpEV.svg)Grok
+
+Zo Computer
+
+![](/assets/static/langchain.B2qiXaj0.svg)LangChain
+
+![](/assets/static/openai.CNSrSktx.svg)OpenAI Agents
+
+![](/assets/static/crewai.CCvJcxfN.svg)CrewAI
+
+![](/assets/static/googleadk.DMkNVu0n.avif)Google ADK
+
+![](/assets/static/pydantic.D-aNTuWR.svg)Pydantic AI
+
+![](/assets/static/strandsagents.CE-yQZly.svg)Strands Agents
+
+![](/assets/static/evejs.BWxgN024.svg)EveJS
+
+![](/assets/static/mastra.DvLJ3iOf.svg)Mastra
+
+![](/assets/static/langchain.B2qiXaj0.svg)LangChain
+
+![](/assets/static/openai.CNSrSktx.svg)OpenAI Agents
+
+![](/assets/static/crewai.CCvJcxfN.svg)CrewAI
+
+![](/assets/static/googleadk.DMkNVu0n.avif)Google ADK
+
+![](/assets/static/pydantic.D-aNTuWR.svg)Pydantic AI
+
+![](/assets/static/strandsagents.CE-yQZly.svg)Strands Agents
+
+![](/assets/static/evejs.BWxgN024.svg)EveJS
+
+![](/assets/static/mastra.DvLJ3iOf.svg)Mastra
+
+![](/assets/static/vercel.4jR_VMI9.svg)Vercel AI SDK
+
+![](/assets/static/cloudflare.CGYztXwG.svg)Cloudflare
+
+![](/assets/static/tanstack.DxyJPAIH.svg)TanStack AI
+
+![](/assets/static/elevenlabs.BuUqRKhW.svg)ElevenLabs
+
+![](/assets/static/livekit.BR9HBWj-.svg)LiveKit
+
+![](/assets/static/n8n.CjHLK_Mt.svg)n8n
+
+![](/assets/static/zapier.V_eYzQMe.svg)Zapier
+
+![](/assets/static/notion.BXZz-f_M.svg)Notion
+
+MCP
+
+![](/assets/static/vercel.4jR_VMI9.svg)Vercel AI SDK
+
+![](/assets/static/cloudflare.CGYztXwG.svg)Cloudflare
+
+![](/assets/static/tanstack.DxyJPAIH.svg)TanStack AI
+
+![](/assets/static/elevenlabs.BuUqRKhW.svg)ElevenLabs
+
+![](/assets/static/livekit.BR9HBWj-.svg)LiveKit
+
+![](/assets/static/n8n.CjHLK_Mt.svg)n8n
+
+![](/assets/static/zapier.V_eYzQMe.svg)Zapier
+
+![](/assets/static/notion.BXZz-f_M.svg)Notion
+
+MCP
+
+Agent Memory CLI
+
+![](/assets/static/javascript.D_T4bX1p.svg)JavaScript
+
+![](/assets/static/python.DsgXw_8w.svg)Python
+
+![](/assets/static/go.Dwg8BTpL.svg)Go
+
+![](/assets/static/swift.BRGfYeYu.svg)Swift
+
+![](/assets/static/kotlin.bJRnLAa6.svg)Kotlin
+
+![](/assets/static/haskell.3Ze2pbaG.svg)Haskell
+
+![](/assets/static/elixir.I_g9w_P5.svg)Elixir
+
+![](/assets/static/dart.CtDmL5GK.svg)Dart
+
+REST API
+
+Agent Memory CLI
+
+![](/assets/static/javascript.D_T4bX1p.svg)JavaScript
+
+![](/assets/static/python.DsgXw_8w.svg)Python
+
+![](/assets/static/go.Dwg8BTpL.svg)Go
+
+![](/assets/static/swift.BRGfYeYu.svg)Swift
+
+![](/assets/static/kotlin.bJRnLAa6.svg)Kotlin
+
+![](/assets/static/haskell.3Ze2pbaG.svg)Haskell
+
+![](/assets/static/elixir.I_g9w_P5.svg)Elixir
+
+![](/assets/static/dart.CtDmL5GK.svg)Dart
+
+REST API
+
+HOW IT COMPARES
+
+## Memory in the database
+
+Approach
+
+### Capability by capability
+
+SurrealDB Agent Memory
+
+Temporal graph memory
+
+Extract and retrieve
+
+Vector databases
+
+Storage model
+
+One multi-model database
+
+Graph store plus vector store
+
+Vector store, graph as an add-on
+
+Vector index only
+
+Write consistency
+
+One transaction per fact write
+
+Eventual across stores
+
+Eventual across stores
+
+\-
+
+Provenance
+
+Source, span and confidence on every fact
+
+The source episode per fact
+
+Metadata on the memory
+
+\-
+
+Corrections
+
+Supersession, with a confidence floor
+
+Invalidation, history retained
+
+Update or append
+
+Append
+
+Time model
+
+Tri-temporal: system, known, valid
+
+Validity windows, observed and recorded
+
+Timestamps
+
+\-
+
+Retrieval signals
+
+Seven, fused and scored
+
+Graph traversal plus vector
+
+Vector plus rerank
+
+Similarity only
+
+Repeated questions
+
+Chat answers reused while their facts hold
+
+Retrieval, then an LLM
+
+Retrieval, then an LLM
+
+Retrieval, then an LLM
+
+Audit trail
+
+Queryable trace graph
+
+External logging
+
+External logging
+
+External logging
+
+Access control
+
+Per-verb grants, deny by default
+
+Application-level
+
+Application-level
+
+Application-level
+
+Published benchmark
+
+Self-reported, with judge, models and date stated
+
+Self-reported
+
+Self-reported
+
+\-
+
+Ten rows, and the first causes most of the others: one engine, so a fact, its provenance and its history are written in one transaction.
+
+PRICING
+
+## Plans for every stage. From a free Sandbox to enterprise.
+
+## Sandbox
+
+Free, no card needed
+
+Plan
+
+Free
+
+3 million tokens included, one-off
+
+[Start in Studio](https://studio.surrealdb.com/current/contexts)
+
+Choose **Sandbox** if you:
+
+-   Want to try the full memory layer with no commitment
+    
+
+Key features:
+
+-   Knowledge graph with provenance
+    
+-   Tri-temporal memory
+    
+-   Hybrid retrieval (vector + BM25 + graph)
+    
+-   MCP server, TypeScript SDK and CLI
+    
+
+## Lite
+
+Billed monthly
+
+Plan
+
+$30/mo
+
+1 million tokens a month included
+
+[Start in Studio](https://studio.surrealdb.com/current/contexts)
+
+Choose **Lite** if you:
+
+-   Are shipping a first agent with modest usage
+    
+
+Key features:
+
+-   Knowledge graph with provenance
+    
+-   Tri-temporal memory
+    
+-   Hybrid retrieval (vector + BM25 + graph)
+    
+-   MCP server, TypeScript SDK and CLI
+    
+
+## Standard
+
+Billed monthly
+
+Plan
+
+$300/mo
+
+10 million tokens a month included
+
+[Start in Studio](https://studio.surrealdb.com/current/contexts)
+
+Choose **Standard** if you:
+
+-   Run production agents with real usage
+    
+
+Key features:
+
+-   Knowledge graph with provenance
+    
+-   Tri-temporal memory
+    
+-   Hybrid retrieval (vector + BM25 + graph)
+    
+-   MCP server, TypeScript SDK and CLI
+    
+
+## Plus
+
+Billed monthly
+
+Plan
+
+$1,100/mo
+
+40 million tokens a month included
+
+[Start in Studio](https://studio.surrealdb.com/current/contexts)
+
+Choose **Plus** if you:
+
+-   Scale agent fleets or heavier ingestion
+    
+
+Key features:
+
+-   Knowledge graph with provenance
+    
+-   Tri-temporal memory
+    
+-   Hybrid retrieval (vector + BM25 + graph)
+    
+-   MCP server, TypeScript SDK and CLI
+    
+
+## Enterprise
+
+Annual agreement
+
+Plan
+
+Custom
+
+Priced for your deployment
+
+[Talk to sales](/contact/sales)
+
+Choose **Enterprise** if you:
+
+-   Need your own model, a single tenant or custom SLAs
+    
+
+Key features:
+
+-   Bring your own model (BYOM)
+    
+-   Single-tenant on SurrealDB Cloud
+    
+-   Self-hosted and air-gapped deployment
+    
+-   Custom SLAs and enterprise support
+    
+
+Tokens are counted on every language-model and embedding call a context makes, including background work such as consolidation.
+
+Features
+
+Sandbox
+
+Lite
+
+Standard
+
+Plus
+
+Enterprise
+
+Plans and usage
+
+Monthly price
+
+Free
+
+$30
+
+$300
+
+$1,100
+
+Custom
+
+Included tokens per month
+
+3 million (one-off)
+
+1 million
+
+10 million
+
+40 million
+
+Agreed with sales
+
+Usage beyond included tokens
+
+Not available
+
+Overage rates apply
+
+Overage rates apply
+
+Overage rates apply
+
+Agreed with sales
+
+Memory capabilities
+
+Knowledge graph with entity extraction
+
+Included
+
+Included
+
+Included
+
+Included
+
+Included
+
+Conversational memory
+
+Included
+
+Included
+
+Included
+
+Included
+
+Included
+
+Tri-temporal versioning and supersession
+
+Included
+
+Included
+
+Included
+
+Included
+
+Included
+
+Provenance on every fact
+
+Included
+
+Included
+
+Included
+
+Included
+
+Included
+
+Hybrid retrieval (vector + BM25 + graph)
+
+Included
+
+Included
+
+Included
+
+Included
+
+Included
+
+Retrieval, decision, and response traces
+
+Included
+
+Included
+
+Included
+
+Included
+
+Included
+
+Multi-modal document pipeline
+
+Included
+
+Included
+
+Included
+
+Included
+
+Included
+
+MCP server, TypeScript SDK, and CLI
+
+Included
+
+Included
+
+Included
+
+Included
+
+Included
+
+Isolation and security
+
+Context isolation (own namespace and database)
+
+Included
+
+Included
+
+Included
+
+Included
+
+Included
+
+Scoped permissions and API-key attenuation
+
+Included
+
+Included
+
+Included
+
+Included
+
+Included
+
+Prompt-injection scanning
+
+Included
+
+Included
+
+Included
+
+Included
+
+Included
+
+Forget verb, and purge for GDPR erasure
+
+Included
+
+Included
+
+Included
+
+Included
+
+Included
+
+Single-tenant deployment
+
+Not included
+
+Not included
+
+Not included
+
+Not included
+
+Included
+
+Bring your own model (BYOM)
+
+Not included
+
+Not included
+
+Not included
+
+Not included
+
+Included
+
+Self-hosted and air-gapped deployment
+
+Not included
+
+Not included
+
+Not included
+
+Not included
+
+Included
+
+Support
+
+Community support
+
+Included
+
+Included
+
+Included
+
+Included
+
+Included
+
+Enterprise support with SLAs
+
+Not included
+
+Not included
+
+Not included
+
+Not included
+
+Included
+
+## Your questions,answered
+
+Is this open source?
+
+Not yet. SurrealDB, which stores every fact, is source-available under the Business Source License 1.1: free to use, modify and self-host, including in production, and the SDKs are open source under Apache 2.0 or MIT. The memory layer on top is closed source today. The one thing SurrealDB's licence reserves is running SurrealDB as a database service for third parties, where they create and manage their own schemas or tables. Each version becomes Apache 2.0 no later than four years after its release.
+
+How was the benchmark measured?
+
+Agent Memory scores 77.2% on BEAM at 1M, across the full 700-question set in 35 conversations. The full label is: BEAM · 1M, 35 conversations, 700 questions · official judge prompt, event ordering by Kendall tau · gemini-3.5-flash-lite judge · gemini-3.8-flash answering, gemini-3.7-flash extraction · October 2026. The score is the mean of ten memory abilities, and each ability's score is shown in the chart.
+
+Where are the benchmark commands?
+
+The [benchmarks page](/agent-memory/benchmarks) describes the harness's three steps: ingest the 1M conversations, answer every question and re-score the recorded answers. It also links the BEAM paper. The harness lives in the Agent Memory repository, which is private today, and the exact invocation behind the published run was not recorded. We will publish the commands beside the answers file.
+
+What models can I use?
+
+Extraction, reconciliation and answering call a language model, and the provider is selected per deployment: SurrealDB selects it on SurrealDB Cloud, and you choose it in your own cloud account or when self-hosting. The embedding model is gemini-embedding-2 at 3072 dimensions. Enterprise deployments can run local models instead, including air-gapped.
+
+What leaves my machine?
+
+LLM calls go to whichever provider the deployment uses. By default, embedding calls go to Google, because the embedder is gemini-embedding-2; an Enterprise deployment that runs local models, including an air-gapped one, sends its model calls to servers it chooses. Everything else stays yours: the database, the facts, the traces and the object-store originals live wherever you run them.
+
+You never delete anything?
+
+Agent Memory removes a fact only when it is told to, and three operations are distinct here. Supersession replaces a fact for retrieval while keeping the old row with valid\_until set, so the chain stays queryable. Aging reduces how much weight a fact carries over time. Deletion is a separate, explicit forget verb that retires a fact so it is no longer recalled, and purge removes the history as well, which is what erasure requires.
+
+How is this different from a vector database?
+
+Agent Memory is a memory and knowledge layer, not a vector database: typed entities, attributes and relations with provenance on every row, supersession instead of overwrite, tri-temporal history, and retrieval that fuses seven signals into one audited ranking. Vectors are one of those seven signals.
+
+Is there a hosted version?
+
+Yes. Agent Memory runs on SurrealDB Cloud, and a context is created in [Studio](https://studio.surrealdb.com/current/contexts). It is priced in four tiers from $30 a month to Enterprise, under a free Sandbox plan with 3 million tokens to try it on - [see the plans](/pricing?product=agentMemory). The engine underneath, SurrealDB, is source-available under BSL 1.1 and free to self-host; the Agent Memory layer is closed source, as the first answer says.
+
+THE PLATFORM
+
+## Everything an application and its agents know. Five surfaces, one engine.
+
+[DatabaseDocument, graph, vector, time-series and relational in one engine.Read more](/surrealdb)[Agent MemoryWhat an agent learns, with its source and its time, in the same engine.Read more](/agent-memory)[CloudManaged clusters in the regions you choose, scaled on demand.Read more](/cloud)[StudioQuery, explore and design the schema from the browser.Read more](/studio)[MCPEvery model that speaks MCP reaches the database and the memory directly.Read more](/mcp)
+
+IN PRODUCTION
+
+## Trusted at scale. Samsung, Nvidia, Verizon, Tencent, and Walmart run on SurrealDB.
+
+14,000+
+
+Developers building on SurrealDB Cloud
+
+4M+
+
+Developers building on SurrealDB worldwide
+
+FROM THE TEAMS
+
+> SurrealDB gives us a foundation where we can unify semantic search, knowledge graphs, and AI-driven decision making without stitching together multiple systems. Collapsing responsibility into SurrealDB has become our default engineering posture.
+
+Justin Foley
+
+VP of Engineering, Later
+
+> As a startup, we didn't want to fragment our stack every time we add a capability… instead we got graph, vector, and full-text from one engine. What surprised us was how quickly we stood up a multi-layered, graph-based memory model for our AI agent.
+
+Daniel Alker
+
+Senior Cloud Platform Engineer, Cobrainer
+
+> An assertion edge carries the voice that made it, the document and page it came from, the figure it states and the dates it holds for. SurrealDB stores that as one record and queries it in one statement. We did not write middleware to hold the ontology together, because there is nothing to hold together.
+
+Jon Aiken
+
+Chief Architect, Pivot AI
+
+GET STARTED
+
+## Give your agents a memory you can trust. Durable memory, trustworthy recall and a knowledge graph in one system you buy, secure and audit once. Built on SurrealDB.
+
+[Start in Studio](https://studio.surrealdb.com/current/contexts)[Talk to sales](/contact/sales)
+
+![ISO 27001](/assets/static/iso.BzQy4FFy.svg)
+
+![AICPA SOC 2 Type 2](/assets/static/aicpa-soc.CE_YjqhK.svg)
+
+![Cyber Essentials](/assets/static/cyber-essentials.CtbmbYfL.svg)
+
+![GDPR](/assets/static/gdpr.IadR7loS.svg)
+
+![Cyber Essentials Plus](/assets/static/cyber-essentials-plus.Cl5P05xe.svg)
+
+1.  ![Babcock](/assets/static/babcock.lo4rnVg1.svg "Babcock")
+2.  ![ING](/assets/static/ing.X3I6S3_V.svg "ING")
+3.  ![British Airways](/assets/static/british-airways.KEsZiwV-.svg "British Airways")
+4.  ![Nvidia](/assets/static/nvidia.DaIEuMil.svg "Nvidia")
+5.  ![Apple](/assets/static/apple.D5pq4flY.svg "Apple")
+6.  ![SpaceX](/assets/static/spacex.CQJEk-IL.svg "SpaceX")
+7.  ![Samsung](/assets/static/samsung.CH-vQgnb.svg "Samsung")
+8.  ![adidas](/assets/static/adidas.DdTC5qhk.svg "adidas")
+9.  ![Tencent](/assets/static/tencent.paQmLxyy.svg "Tencent")
+10.  ![Alibaba](/assets/static/alibaba.B16idgfM.svg "Alibaba")
+11.  ![PolyAI](/assets/static/poly-ai.c3w_fAg6.svg "PolyAI")
+12.  ![Later](/assets/static/later.Ds736jFO.svg "Later")
+13.  ![Verizon](/assets/static/verizon.BI7CajdX.svg "Verizon")
+14.  ![Liberty Mutual](/assets/static/liberty-mutual.B7qOU1pd.svg "Liberty Mutual")
+15.  ![Walmart](/assets/static/walmart.BjDg_Sr8.svg "Walmart")
+16.  ![Carrier](/assets/static/carrier.D21gC6NX.svg "Carrier")
+17.  ![Saks Fifth Avenue](/assets/static/saks-fifth-avenue.COIDpLSb.svg "Saks Fifth Avenue")
+18.  ![San Francisco Compute Company](/assets/static/sfcc.B7jlImq4.svg "San Francisco Compute Company")
+19.  ![Shield AI](/assets/static/shield-ai.pINZ0KJr.svg "Shield AI")
+20.  ![Wix](/assets/static/wix.DvHhmoBi.svg "Wix")
+21.  ![](/assets/static/babcock.lo4rnVg1.svg)
+22.  ![](/assets/static/ing.X3I6S3_V.svg)
+23.  ![](/assets/static/british-airways.KEsZiwV-.svg)
+24.  ![](/assets/static/nvidia.DaIEuMil.svg)
+25.  ![](/assets/static/apple.D5pq4flY.svg)
+26.  ![](/assets/static/spacex.CQJEk-IL.svg)
+27.  ![](/assets/static/samsung.CH-vQgnb.svg)
+28.  ![](/assets/static/adidas.DdTC5qhk.svg)
+29.  ![](/assets/static/tencent.paQmLxyy.svg)
+30.  ![](/assets/static/alibaba.B16idgfM.svg)
+31.  ![](/assets/static/poly-ai.c3w_fAg6.svg)
+32.  ![](/assets/static/later.Ds736jFO.svg)
+33.  ![](/assets/static/verizon.BI7CajdX.svg)
+34.  ![](/assets/static/liberty-mutual.B7qOU1pd.svg)
+35.  ![](/assets/static/walmart.BjDg_Sr8.svg)
+36.  ![](/assets/static/carrier.D21gC6NX.svg)
+37.  ![](/assets/static/saks-fifth-avenue.COIDpLSb.svg)
+38.  ![](/assets/static/sfcc.B7jlImq4.svg)
+39.  ![](/assets/static/shield-ai.pINZ0KJr.svg)
+40.  ![](/assets/static/wix.DvHhmoBi.svg)
+
+                                            
+
+[](/)
+
+DatabaseAgent MemoryResources[Docs](/docs/agent-memory)[Pricing](/pricing)[Stop choosing](/stop-choosing)[GitHub](https://github.com/surrealdb/surrealdb)[Sign in](https://studio.surrealdb.com/?signin=true)[Get started](https://studio.surrealdb.com/current/instances/deploy)
+
+Menu
+
+## Database
+
+EXPLORE
+
+[DatabaseOne database for every data model](/surrealdb)[All features](/surrealdb/features)[SurrealQL](/docs/reference/query-language)[Technical deep-dive](/surrealdb/deep-dive)[Benchmarks](/surrealdb/benchmarks)
+
+BUILD AND DEPLOY
+
+[CloudFully managed SurrealDB](/cloud)[StudioExplore and manage your data](/studio)[Embedded and edge](/use-cases/embedded-edge)[Integrations](/integrations)
+
+CAPABILITIES
+
+[Graph and vector](/surrealdb/graph)[Realtime](/surrealdb/realtime)[Auth and permissions](/surrealdb/auth)[Storage](/surrealdb/storage)
+
+USE CASES
+
+[AI agents](/use-cases/ai-agents)[Knowledge graphs](/use-cases/knowledge-graphs)[Real-time applications](/use-cases/real-time)[All use cases](/solutions)
+
+[All comparisonsSurrealDB against Postgres, MongoDB, Neo4j and more](/comparison)[Read the documentation](/docs)
+
+Menu
+
+## Agent Memory
+
+DISCOVER
+
+[Agent MemoryPersistent, provable memory for agents](/agent-memory)[Start in Studio](https://studio.surrealdb.com/current/contexts)[Technical deep-dive](/agent-memory/deep-dive)[Benchmarks](/agent-memory/benchmarks)[Documentation](/docs/agent-memory)[MCP server](/mcp)
+
+DEPLOY AND MANAGE
+
+[CloudFully managed SurrealDB](/cloud)[StudioExplore and manage your memory](/studio)
+
+CAPABILITIES
+
+[Typed memory](/agent-memory/memory)[Knowledge graph](/agent-memory/knowledge-graph)[Recall](/agent-memory/recall)[Provenance](/agent-memory/provenance)[Temporal memory](/agent-memory/temporal)
+
+USE CASES
+
+[AI agents](/use-cases/ai-agents)[Knowledge graphs](/use-cases/knowledge-graphs)[All use cases](/solutions)
+
+[All comparisonsAgent Memory against middleware, agent and vector databases](/comparison)[Read the documentation](/docs/agent-memory)
+
+Menu
+
+## Resources
+
+LEARN
+
+[Labs](/docs/labs)[University](/learn)[Connect your agentMCP, Agent Skills, and AI frameworks](/docs/build/ai-agents)
+
+EXPLORE
+
+[Use cases](/solutions)[Blog](/blog)[Case studies](/casestudies)[Whitepapers](/whitepapers)[Events and webinars](/events)[CommunityThe SurrealDB Discord](https://discord.gg/surrealdb)[Newsletter](/newsletter)
+
+COMPANY
+
+[Enterprise](/enterprise)[Ambassador programme](/ambassador-programme)[About us](/about)[Careers](/careers)
+
+SurrealDB Agent Memory
+
+Temporal graph memory
+
+Extract and retrieve
+
+Vector databases

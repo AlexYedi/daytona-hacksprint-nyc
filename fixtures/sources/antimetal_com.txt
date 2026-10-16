@@ -1,0 +1,248 @@
+url: https://antimetal.com
+fetched_at: 2026-10-16T15:57:26Z
+via: Anchor fetch-webpage
+---
+---
+
+![](/images/ben-video-thumbnail.jpg)2:07![](/AM-network-mark.svg?dpl=dpl_5nnGcL8zXCo5RXeCc5zBL87fMXWr)
+
+> “You may be able to build software rapidly, but if people can’t depend on it, if you can’t figure out what breaks, well, people aren’t going to use it.”
+
+Ben Lutch
+
+Google, VP of Engineering
+
+![Google](/logos/google.svg?dpl=dpl_5nnGcL8zXCo5RXeCc5zBL87fMXWr)
+
+---
+
+Understanding needed to  
+manage productionWhat your team can  
+hold in their headsRepresentational gapComplexityTime
+
+Production engineering, as practiced today, is breaking. Software systems have grown too complex for humans to manually operate, and the knowledge required to run them is fragmented across tools, infrastructure, alerts, and tribal knowledge. The result is pages at 3 a.m., dashboards that surface symptoms instead of causes, and fixes that never become prevention.
+
+Antimetal is building the autonomous system for production: a new layer between your team and your running systems.
+
+It diagnoses. It fixes. It prevents. It learns how your systems run and operates production for you.
+
+02Where we sit
+
+## A new layer of the stack
+
+Antimetal is the autonomous layer between your team and your production systems.
+
+THE VISION
+
+### Production should run itself.
+
+Production is too complex to run manually. Engineers should set direction, ship product, and approve important changes. The rest should be handled autonomously.
+
+THE WORLD MODEL
+
+### A layer that owns the runtime.
+
+At its core sits a live world model, a continuous understanding of how your stack behaves. On top, an army of specialized agents acts on the model to diagnose, fix, prevent, and answer any question.
+
+THE AUTONOMOUS LAYER
+
+### Everyone else watches. We operate.
+
+Most software stops at recommendations and assistance, keeping humans in the loop as the operational layer. Antimetal is designed to continuously investigate, operate, and improve production systems itself.
+
+### Your Team
+
+Defines priorities, direction, and goals.
+
+### Antimetal Agents
+
+Army of specialists that act on production.
+
+### Antimetal World Model
+
+A live view of how your stack actually behaves.
+
+![](/antimetal-glyph.svg)
+
+![](/logos/01-kubernetes.svg)
+
+![](/logos/02-grafana.svg)
+
+![](/logos/03-github.svg)
+
+![](/logos/04-datadog.svg)
+
+![](/logos/05-aws.svg)
+
+![](/logos/06-gcp.svg)
+
+![](/logos/07-linear.svg)
+
++92 more integrations
+
+### Production
+
+Runtime systems, infrastructure, code execution, and everything around them.
+
+![](/images/fallbacks/stack.webp)
+
+### Your Team
+
+Defines priorities, direction, and goals.
+
+### Antimetal Agents
+
+Army of specialists that act on production.
+
+### Antimetal World Model
+
+A live view of how your stack actually behaves.
+
+![](/antimetal-glyph.svg)
+
+![](/logos/01-kubernetes.svg)
+
+![](/logos/02-grafana.svg)
+
+![](/logos/03-github.svg)
+
+![](/logos/04-datadog.svg)
+
+![](/logos/05-aws.svg)
+
+![](/logos/06-gcp.svg)
+
+![](/logos/07-linear.svg)
+
++92 more integrations
+
+### Production
+
+Runtime systems, infrastructure, code execution, and everything around them.
+
+Antimetal · Production
+
+04Your Stack is our Stack
+
+## One platform.  
+An army of agents.
+
+Specialized agents that own different slices of production. Composable, customizable, and fully auditable.
+
+Proactive
+
+### Patrol
+
+Continuously watches for operational risks, regressions, and system drift.
+
+Reactive
+
+### Triage
+
+Turns noisy production signals into structured, actionable issues.
+
+Intelligence
+
+### World Model
+
+Continuously learns how your systems and teams behave and evolve.
+
+Platform
+
+### Agent Builder
+
+Create custom operational agents via natural language.
+
+05FAQ
+
+## Operating production with agents
+
+What teams want to know before trusting Antimetal in production.
+
+---
+
+How does Antimetal understand my systems?
+
+Antimetal builds a continuously evolving world model of your production environment by connecting to the tools you already use.
+
+Each signal is normalized and linked to the systems, changes, and people around it, so a deployment connects to the metrics it changed, the alert it triggered, and the engineer who pushed it.
+
+The result is persistent operational context that updates in real time and improves the longer Antimetal runs.
+
+---
+
+Does Antimetal replace observability tools?
+
+No. Antimetal sits on top of the observability tools you already use and uses their data to build and maintain its world model.
+
+Observability platforms were built for humans to read dashboards and investigate alerts. Antimetal is built for a world where production operates itself.
+
+---
+
+Why isn't a coding agent enough?
+
+Coding agents are good at generating code. Operating production is different. It requires continuous understanding of a live system: what changed, what depends on what, what failed before, and what is happening right now.
+
+That understanding cannot come from a single prompt or context window. Antimetal's world model gives agents continuously updated operational context across your infrastructure, telemetry, deployments, and code.
+
+That is what allows Antimetal to reason about production systems in ways standard coding agents cannot.
+
+---
+
+What can Antimetal do autonomously?
+
+Antimetal can investigate incidents, trace failures across systems, identify likely root causes, propose fixes, open pull requests, and carry out operational workflows on your behalf.
+
+It starts with read access to your observability, infrastructure, and code systems so it can build and maintain its world model. From there, you control what actions it is allowed to take.
+
+By default, changes still route through your existing approval flow, whether that is a pull request, deployment pipeline, or Slack approval.
+
+---
+
+06Stay up to date
+
+## From the research log.
+
+[View All](/blog)
+
+[![Compressing Production Telemetry for Agents](/_next/image?url=%2Fimages%2F07_ScalingUnderstanding.jpg&w=3840&q=75&dpl=dpl_5nnGcL8zXCo5RXeCc5zBL87fMXWr)Research08/03/2026 ### Compressing Production Telemetry for Agents How we fit 10 to 100x more telemetry into the same context window, and why that changes what agents can debug. ![](/_next/image?url=%2Fimages%2Fauthors%2Fthibaud-roy.jpg&w=3840&q=75&dpl=dpl_5nnGcL8zXCo5RXeCc5zBL87fMXWr) Thibaud Roy 6 min](/blog/scaling-understanding)
+
+[![We used Antimetal to resolve 76% of our production errors in one day](/_next/image?url=%2Fimages%2F05_ClearingErrors.jpg&w=3840&q=75&dpl=dpl_5nnGcL8zXCo5RXeCc5zBL87fMXWr)Research06/10/2026 ### We used Antimetal to resolve 76% of our production errors in one day We pointed Antimetal at our production environment to see how many errors it could resolve on its own. ![](/_next/image?url=%2Fimages%2Fauthors%2Fthibaud-roy.jpg&w=3840&q=75&dpl=dpl_5nnGcL8zXCo5RXeCc5zBL87fMXWr) Thibaud Roy 9 min](/blog/clearing-76-of-our-production-errors-in-one-day)
+
+[![How we automated technical implementation](/_next/image?url=%2Fimages%2F04_Anvil.jpg&w=3840&q=75&dpl=dpl_5nnGcL8zXCo5RXeCc5zBL87fMXWr)Engineering06/05/2026 ### How we automated technical implementation Most startups scale onboarding by hiring forward-deployed engineers. We built Anvil to do most of it in software, before reaching for people. ![](/_next/image?url=%2Fimages%2Fauthors%2Fsai-naidu.jpg&w=3840&q=75&dpl=dpl_5nnGcL8zXCo5RXeCc5zBL87fMXWr) Sai Naidu 7 min](/blog/how-we-automated-technical-implementation)
+
+## The autonomous system for production.
+
+Take a 30 minute demo to see if Antimetal  
+is the missing layer in your stack.
+
+[Book a demo](/book-a-demo)[Read the research](/blog)
+
+Product
+
+-   Agentic Production Engineering
+
+Company
+
+-   [About](/)
+-   [Careers](/careers)
+-   [Blog](/blog)
+
+Resources
+
+-   [Docs](https://docs.antimetal.com/)
+-   [Explore](/explore)
+-   [Glossary](/glossary)
+-   [Integrations](/integrations)
+
+Compliance
+
+-   [Terms](/terms)
+-   [Privacy](/privacy)
+
+All systems normalBuilt in NYC
+
+The autonomous system for production.  
+SOC 2, GDPR, and HIPAA compliant.
+
+Jump Sections
