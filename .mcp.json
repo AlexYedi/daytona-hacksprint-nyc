@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "arize-ax": {
+      "type": "http",
+      "url": "https://api.arize.com/mcp",
+      "headers": {
+        "Authorization": "Bearer ${ARIZE_API_KEY}"
+      }
+    },
+    "agent-memory": {
+      "type": "http",
+      "url": "${SPECTRON_URL}/mcp",
+      "headers": {
+        "Authorization": "Bearer ${SPECTRON_API_KEY}",
+        "X-Spectron-Context": "${SPECTRON_CONTEXT_ID}"
+      }
+    }
+  }
+}

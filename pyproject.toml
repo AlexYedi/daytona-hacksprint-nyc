@@ -1,0 +1,19 @@
+[project]
+name = "fact-checked-publisher"
+version = "0.1.0"
+description = "A publishing agent that cannot publish an unsourced claim: Cedar policy outside the model, untrusted text quarantined in Daytona, provenance in SurrealDB, traces in Arize."
+requires-python = ">=3.12"
+dependencies = [
+    "claude-agent-sdk",
+    "daytona",
+    "elevenlabs",
+    "cedarpy",
+    "arize-otel",
+    "openinference-instrumentation-claude-agent-sdk",
+    "opentelemetry-api",
+    "httpx",
+    "pydantic",
+    "rapidfuzz",
+    "python-dotenv",
+    "rich",
+]
